@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">CKD Active</string>
+    <string name="title_activity_main">CKD Active</string>
+    <string name="package_name">com.ckdtracker.app</string>
+    <string name="custom_url_scheme">com.ckdtracker.app</string>
+</resources>
