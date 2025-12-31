@@ -10,7 +10,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # Updated to meet Vite requirements
+          node-version: 22
+
+      # ADD THIS STEP TO FIX THE JAVA ERROR
+      - name: set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
       - name: Install Dependencies
         run: |
@@ -19,10 +26,11 @@ jobs:
 
       - name: Build with Capacitor
         run: |
-          # If the android folder doesn't exist yet, add it
+          # Create android folder if missing
           if [ ! -d "android" ]; then
             npx cap add android
           fi
+          # Sync and build
           npx cap sync android
           cd android
           chmod +x gradlew
