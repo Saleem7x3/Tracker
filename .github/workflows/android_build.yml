@@ -6,19 +6,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22 # Updated to meet Vite requirements
+
       - name: Install Dependencies
         run: |
           npm install
           npm run build
+
       - name: Build with Capacitor
         run: |
+          # If the android folder doesn't exist yet, add it
+          if [ ! -d "android" ]; then
+            npx cap add android
+          fi
           npx cap sync android
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
